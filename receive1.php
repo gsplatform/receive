@@ -5,7 +5,10 @@
 
     saveLog("info", "start saving");
     
-    $dest = dirname(__FILE__) . DIRECTORY_SEPARATOR . "folder1";
+    /* $dest = dirname(__FILE__) . DIRECTORY_SEPARATOR . "folder1";
+*/
+
+    $dest = "/usr/local/rcvdata";
     $f = new BodyBinary($dest);
     $f->save();
 

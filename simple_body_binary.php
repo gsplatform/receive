@@ -18,10 +18,21 @@ use PhpAmqpLib\Message\AMQPMessage;
         
         function save() {
             $str = file_get_contents("php://input");
-            //saveLog("debug", $str);
-            
-            $fname = $this->dest_path. DIRECTORY_SEPARATOR .date('YmdHis').".zip";
+           /* saveLog("debug", $str);*/
+
+            $fname = $this->dest_path. DIRECTORY_SEPARATOR .md5(uniqid(rand(),1)).".zip";
             saveLog("debug", "temp name : $fname");
+            if ( file_exists( $fname )  ){
+
+            saveLog("debug", "exist : $fname");
+
+               while (  file_exists( $fname ) ){
+               sleep( 1000 );
+               $fname = $this->dest_path. DIRECTORY_SEPARATOR .md5(uniqid(rand(),1)).".zip";
+                }
+
+            }
+            
             
             $fh = fopen($fname, "wb");
             fwrite($fh, $str);
